@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Elite Abseiling",
+    "slug": "elite-abseiling",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/brand/elite-abseiling-logo.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "eliteabseiling",
+    "backgroundColor": "#1a1a1a",
+    "primaryColor": "#d4d700",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "uk.co.eliteabseiling.app",
+      "infoPlist": {
+        "CFBundleDisplayName": "Elite Abseiling"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1a1a1a",
+        "foregroundImage": "./assets/brand/elite-abseiling-logo.png"
+      },
+      "package": "uk.co.eliteabseiling.app",
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/brand/elite-abseiling-logo.png",
+      "bundler": "metro",
+      "backgroundColor": "#1a1a1a",
+      "name": "Elite Abseiling Ltd",
+      "shortName": "Elite Abseiling",
+      "description": "Industrial rope access — inspections, façade maintenance, cleaning, repairs and height safety across the UK."
+    },
+    "plugins": [
+      "expo-font",
+      "expo-router",
+      "expo-system-ui"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
