@@ -16,9 +16,9 @@ export const fonts = {
 export const type = {
   hero: {
     fontFamily: fonts.displayExtra,
-    fontSize: 40,
-    lineHeight: 44,
-    letterSpacing: -0.8,
+    fontSize: 36,
+    lineHeight: 40,
+    letterSpacing: -0.6,
   },
   h1: {
     fontFamily: fonts.displayExtra,

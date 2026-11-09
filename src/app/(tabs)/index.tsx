@@ -1,5 +1,6 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BrandLogo } from '../../components/BrandLogo';
 import { PrimaryButton } from '../../components/PrimaryButton';
 import { Screen } from '../../components/Screen';
@@ -12,19 +13,24 @@ import { type } from '../../theme/typography';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
-    <Screen padded={false} contentStyle={styles.screenContent}>
-      <ImageBackground
-        source={require('../../../assets/images/home-opening.jpg')}
-        style={styles.hero}
-        imageStyle={styles.heroImage}
-        accessibilityRole="image"
-        accessibilityLabel="Rope-access technicians working on a glass façade"
-      >
-        <View style={styles.heroScrim} />
-        <View style={styles.heroInner}>
-          <BrandLogo height={44} />
+    <Screen padded={false} topSafe={false} contentStyle={styles.screenContent}>
+      <View style={[styles.hero, { paddingTop: Math.max(insets.top, space.sm) }]}>
+        <Image
+          source={require('../../../assets/images/home-opening.jpg')}
+          style={styles.heroPhoto}
+          accessibilityLabel="Rope-access technicians working on a glass façade"
+        />
+        <View style={styles.heroTopScrim} pointerEvents="none" />
+        <View style={styles.heroBottomScrim} pointerEvents="none" />
+
+        <View style={styles.heroTop}>
+          <BrandLogo height={42} />
+        </View>
+
+        <View style={styles.heroBottom}>
           <AccentRule />
           <Text accessibilityRole="header" style={styles.heroTitle}>
             {site.hero.title}
@@ -44,7 +50,7 @@ export default function HomeScreen() {
             />
           </View>
         </View>
-      </ImageBackground>
+      </View>
 
       <View style={styles.below}>
         <Section
@@ -67,10 +73,9 @@ export default function HomeScreen() {
           title="Façade teams on the ropes."
           body="Industrial cleaning, glazing support, inspections and repairs — delivered from rope access so programmes move without a scaffold envelope."
         >
-          <ImageBackground
+          <Image
             source={require('../../../assets/images/the-work.jpg')}
             style={styles.featureImage}
-            imageStyle={styles.featureImageInner}
             accessibilityLabel="Technicians cleaning a high-rise glass façade"
           />
           <PrimaryButton
@@ -86,10 +91,9 @@ export default function HomeScreen() {
           title="Liphook base. UK coverage."
           body={`${site.address}. Rope-access scopes for commercial façades, plant areas and hard-to-reach fabric.`}
         >
-          <ImageBackground
+          <Image
             source={require('../../../assets/images/where-they-work.jpg')}
             style={styles.featureImageWide}
-            imageStyle={styles.featureImageInner}
             accessibilityLabel="Rope-access team on a building overlooking the landscape"
           />
           <PrimaryButton
@@ -114,21 +118,44 @@ const styles = StyleSheet.create({
     paddingBottom: space.xxl,
   },
   hero: {
-    minHeight: 620,
-    justifyContent: 'flex-end',
+    minHeight: 640,
+    justifyContent: 'space-between',
+    overflow: 'hidden',
+    backgroundColor: colors.bg,
   },
-  heroImage: {
+  heroPhoto: {
+    ...StyleSheet.absoluteFill,
+    width: '100%',
+    height: '100%',
     resizeMode: 'cover',
   },
-  heroScrim: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: colors.overlayHeavy,
+  heroTopScrim: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 140,
+    backgroundColor: 'rgba(10, 12, 17, 0.35)',
   },
-  heroInner: {
+  heroBottomScrim: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '62%',
+    backgroundColor: 'rgba(10, 12, 17, 0.72)',
+  },
+  heroTop: {
+    paddingHorizontal: layout.screenPadding,
+    paddingTop: space.sm,
+    zIndex: 2,
+  },
+  heroBottom: {
     paddingHorizontal: layout.screenPadding,
     paddingBottom: space.xxl,
     gap: space.md,
     maxWidth: 640,
+    zIndex: 2,
   },
   heroTitle: {
     ...type.hero,
@@ -170,17 +197,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   featureImage: {
+    width: '100%',
     height: 240,
     marginTop: space.md,
     marginBottom: space.md,
+    borderRadius: layout.radiusMd,
+    resizeMode: 'cover',
   },
   featureImageWide: {
+    width: '100%',
     height: 280,
     marginTop: space.md,
     marginBottom: space.md,
-  },
-  featureImageInner: {
     borderRadius: layout.radiusMd,
+    resizeMode: 'cover',
   },
   inlineBtn: {
     alignSelf: 'flex-start',

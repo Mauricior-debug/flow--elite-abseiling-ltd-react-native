@@ -20,7 +20,7 @@ export const site = {
     'All equipment is certified and inspected regularly, in line with UK law.',
   ],
   hero: {
-    title: 'Rope access that reaches the work — without the scaffolding wait.',
+    title: 'Rope access that reaches the work — without a scaffold wait.',
     support:
       'IRATA-aligned teams for surveys, façade maintenance, cleaning, repairs and height safety from Liphook, Hampshire across the UK.',
     primaryCta: 'Call for a quote',

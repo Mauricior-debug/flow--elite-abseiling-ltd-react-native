@@ -14,6 +14,8 @@ type Props = {
   children: ReactNode;
   scroll?: boolean;
   padded?: boolean;
+  /** When false, the screen manages its own top inset (e.g. full-bleed heroes). */
+  topSafe?: boolean;
   style?: StyleProp<ViewStyle>;
   contentStyle?: StyleProp<ViewStyle>;
   bottomExtra?: number;
@@ -23,13 +25,14 @@ export function Screen({
   children,
   scroll = true,
   padded = true,
+  topSafe = true,
   style,
   contentStyle,
   bottomExtra = 28,
 }: Props) {
   const insets = useSafeAreaInsets();
   const padding = {
-    paddingTop: Math.max(insets.top, space.sm),
+    paddingTop: topSafe ? Math.max(insets.top, space.sm) : 0,
     paddingBottom: insets.bottom + bottomExtra,
     paddingHorizontal: padded ? layout.screenPadding : 0,
   };
